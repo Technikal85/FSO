@@ -19,8 +19,8 @@ const App = () => {
 
   return (
     <>
-      <Header course={course.name} />
-      <Content Part1 Part2 Part3 parts={course.parts} />
+      <Header />
+      <Content />
       <Total parts={course.parts} />
     </>
   );
@@ -29,12 +29,12 @@ const App = () => {
 const Header = (props) => {
   return (
     <div>
-      <h1>{props.course}</h1>
+      <h1>{props.name}</h1>
     </div>
   );
 };
 
-const Content = (props) => {
+const Content = () => {
   const parts = [
     {
       name: "Fundamentals of React",
