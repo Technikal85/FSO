@@ -1,20 +1,52 @@
 import { useState } from "react";
 
-const Display1 = (props) => (
-  <div>
-    {props.text} {props.good}
-  </div>
-);
-const Display2 = (props) => (
-  <div>
-    {props.text} {props.neutral}
-  </div>
-);
-const Display3 = (props) => (
-  <div>
-    {props.text} {props.bad}
-  </div>
-);
+const Display1 = (props) => {
+  return (
+    <div>
+      {props.text} {props.good}
+    </div>
+  );
+};
+const Display2 = (props) => {
+  return (
+    <div>
+      {props.text} {props.neutral}
+    </div>
+  );
+};
+const Display3 = (props) => {
+  return (
+    <div>
+      {props.text} {props.bad}
+    </div>
+  );
+};
+
+const Total = (props) => {
+  return (
+    <div>
+      {props.text} {props.total}
+    </div>
+  );
+};
+
+const Average = (props) => {
+  const average = props.total === 0 ? 0 : props.average;
+  return (
+    <div>
+      {props.text} {average}
+    </div>
+  );
+};
+
+const Positive = (props) => {
+  const total = props.total === 0 ? 0 : props.positive;
+  return (
+    <div>
+      {props.text} {total}
+    </div>
+  );
+};
 
 const Label = (props) => {
   return <h1>{props.text}</h1>;
@@ -40,6 +72,17 @@ const App = () => {
       <Display1 good={good} text={"good"} />
       <Display2 neutral={neutral} text={"neutral"} />
       <Display3 bad={bad} text={"bad"} />
+      <Total total={good + neutral + bad} text={"total"} />
+      <Average
+        total={good + neutral + bad}
+        average={(good - bad) / (good + neutral + bad)}
+        text={"average"}
+      />
+      <Positive
+        total={good + neutral + bad}
+        positive={good / (good + neutral + bad)}
+        text={"positive"}
+      />
     </>
   );
 };
