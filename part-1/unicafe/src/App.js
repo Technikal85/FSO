@@ -1,33 +1,33 @@
 import { useState } from "react";
 
-const Button = (handleClick, text) => (
+const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
 );
-const Label = (text) => <h1>{text}</h1>;
+const Label = ({ text }) => <h1>{text}</h1>;
 
-const Good = (text, good) => (
+const Good = ({ text, good }) => (
   <div>
     {text} {good}
   </div>
 );
-const Neutral = (text, neutral) => (
+const Neutral = ({ text, neutral }) => (
   <div>
     {text} {neutral}
   </div>
 );
-const Bad = (text, bad) => {
+const Bad = ({ text, bad }) => (
   <div>
     {text} {bad}
-  </div>;
-};
+  </div>
+);
 
-const Total = (total, text) => (
+const Total = ({ total, text }) => (
   <div>
     {text} {total}
   </div>
 );
 
-const Average = (total, average, text) => {
+const Average = ({ total, average, text }) => {
   const zero = total === 0 ? 0 : average;
   return (
     <div>
@@ -63,6 +63,14 @@ const Statistics = ({ good, neutral, bad }) => {
   );
 };
 
+const History = ({ total, good, neutral, bad }) => {
+  return total === 0 ? (
+    <h2>No feedback given.</h2>
+  ) : (
+    <Statistics good={good} neutral={neutral} bad={bad} />
+  );
+};
+
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
@@ -77,8 +85,14 @@ const App = () => {
       <Good good={good} text={"good"} />
       <Neutral neutral={neutral} text={"neutral"} />
       <Bad bad={bad} text={"bad"} />
+
       <Label text={"Statistics"} />
-      <Statistics good={good} neutral={neutral} bad={bad} />
+      <History
+        total={good + neutral + bad}
+        good={good}
+        neutral={neutral}
+        bad={bad}
+      />
     </>
   );
 };
