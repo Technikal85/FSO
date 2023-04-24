@@ -1,34 +1,11 @@
 import { useState } from "react";
 
-const Display1 = (props) => {
-  return (
-    <div>
-      {props.text} {props.good}
-    </div>
-  );
-};
-const Display2 = (props) => {
-  return (
-    <div>
-      {props.text} {props.neutral}
-    </div>
-  );
-};
-const Display3 = (props) => {
-  return (
-    <div>
-      {props.text} {props.bad}
-    </div>
-  );
-};
+const Display1 = (props) => <div>{props.text} {props.good}</div>
+const Display2 = (props) => <div>{props.text} {props.neutral}</div>
+const Display3 = (props) => <div>{props.text} {props.bad}</div>
 
-const Total = (props) => {
-  return (
-    <div>
-      {props.text} {props.total}
-    </div>
-  );
-};
+
+const Total = (props) => <div>{props.text} {props.total}</div>
 
 const Average = (props) => {
   const average = props.total === 0 ? 0 : props.average;
@@ -48,13 +25,11 @@ const Positive = (props) => {
   );
 };
 
-const Label = (props) => {
-  return <h1>{props.text}</h1>;
-};
+const Label = (props) => <h1>{props.text}</h1>;
 
-const Button = (props) => {
-  return <button onClick={props.handleClick}>{props.text}</button>;
-};
+
+const Button = (props) => <button onClick={props.handleClick}>{props.text}</button>;
+
 
 const App = () => {
   const [good, setGood] = useState(0);
