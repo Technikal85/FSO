@@ -1,46 +1,46 @@
 import { useState } from "react";
 
-const Button = (props) => (
-  <button onClick={props.handleClick}>{props.text}</button>
+const Button = (handleClick, text) => (
+  <button onClick={handleClick}>{text}</button>
 );
-const Label = (props) => <h1>{props.text}</h1>;
+const Label = (text) => <h1>{text}</h1>;
 
-const Good = (props) => (
+const Good = (text, good) => (
   <div>
-    {props.text} {props.good}
+    {text} {good}
   </div>
 );
-const Neutral = (props) => (
+const Neutral = (text, neutral) => (
   <div>
-    {props.text} {props.neutral}
+    {text} {neutral}
   </div>
 );
-const Bad = (props) => (
+const Bad = (text, bad) => {
   <div>
-    {props.text} {props.bad}
+    {text} {bad}
+  </div>;
+};
+
+const Total = (total, text) => (
+  <div>
+    {text} {total}
   </div>
 );
 
-const Total = (props) => (
-  <div>
-    {props.text} {props.total}
-  </div>
-);
-
-const Average = (props) => {
-  const average = props.total === 0 ? 0 : props.average;
+const Average = (total, average, text) => {
+  const zero = total === 0 ? 0 : average;
   return (
     <div>
-      {props.text} {average}
+      {text} {zero}
     </div>
   );
 };
 
-const Positive = (props) => {
-  const total = props.total === 0 ? 0 : props.positive;
+const Positive = ({ total, positive, text }) => {
+  const zero = total === 0 ? 0 : positive;
   return (
     <div>
-      {props.text} {total}
+      {text} {zero}
     </div>
   );
 };
