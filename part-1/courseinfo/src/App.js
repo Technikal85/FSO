@@ -25,10 +25,13 @@ const App = () => {
   );
 };
 
-const Header = (props) => <div><h1>{props.name}</h1></div>
+const Header = (props) => (
+  <div>
+    <h1>{props.name}</h1>
+  </div>
+);
 
 const Content = () => {
- 
   return (
     <>
       <Part1 parts={course.parts} />
