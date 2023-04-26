@@ -6,9 +6,11 @@ const Button = ({ handleClick, text }) => (
 
 const Statisticline = ({ text, value }) => {
   return (
-    <div>
-      {text} {value}
-    </div>
+    <table>
+      <tr>
+        {text} {value}
+      </tr>
+    </table>
   );
 };
 
