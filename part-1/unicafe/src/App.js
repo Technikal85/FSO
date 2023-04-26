@@ -3,44 +3,11 @@ import { useState } from "react";
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
 );
-const Label = ({ text }) => <h1>{text}</h1>;
 
-const Good = ({ text, good }) => (
-  <div>
-    {text} {good}
-  </div>
-);
-const Neutral = ({ text, neutral }) => (
-  <div>
-    {text} {neutral}
-  </div>
-);
-const Bad = ({ text, bad }) => (
-  <div>
-    {text} {bad}
-  </div>
-);
-
-const Total = ({ total, text }) => (
-  <div>
-    {text} {total}
-  </div>
-);
-
-const Average = ({ total, average, text }) => {
-  const zero = total === 0 ? 0 : average;
+const Statisticline = ({ text, value }) => {
   return (
     <div>
-      {text} {zero}
-    </div>
-  );
-};
-
-const Positive = ({ total, positive, text }) => {
-  const zero = total === 0 ? 0 : positive;
-  return (
-    <div>
-      {text} {zero}
+      {text} {value}
     </div>
   );
 };
@@ -48,17 +15,12 @@ const Positive = ({ total, positive, text }) => {
 const Statistics = ({ good, neutral, bad }) => {
   return (
     <>
-      <Total total={good + neutral + bad} text={"total"} />
-      <Average
-        total={good + neutral + bad}
-        average={(good - bad) / (good + neutral + bad)}
+      <Statisticline text={"total"} value={good + neutral + bad} />
+      <Statisticline
         text={"average"}
+        value={(good - bad) / (good + neutral + bad)}
       />
-      <Positive
-        total={good + neutral + bad}
-        positive={good / (good + neutral + bad)}
-        text={"positive"}
-      />
+      <Statisticline text={"positive"} value={good / (good + neutral + bad)} />
     </>
   );
 };
@@ -78,15 +40,15 @@ const App = () => {
 
   return (
     <>
-      <Label text={"Give Feedback"} />
+      <h1>Give feedback</h1>
       <Button handleClick={() => setGood(good + 1)} text={"good"} />
       <Button handleClick={() => setNeutral(neutral + 1)} text={"neutral"} />
       <Button handleClick={() => setBad(bad + 1)} text={"bad"} />
-      <Good good={good} text={"good"} />
-      <Neutral neutral={neutral} text={"neutral"} />
-      <Bad bad={bad} text={"bad"} />
+      <p>good {good}</p>
+      <p>neutral {neutral}</p>
+      <p>bad {bad}</p>
 
-      <Label text={"Statistics"} />
+      <h1>Statistics</h1>
       <History
         total={good + neutral + bad}
         good={good}
