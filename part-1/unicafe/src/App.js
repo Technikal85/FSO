@@ -15,6 +15,9 @@ const Statisticline = ({ text, value }) => {
 const Statistics = ({ good, neutral, bad }) => {
   return (
     <>
+      <Statisticline text={"good"} value={good} />
+      <Statisticline text={"neutral"} value={neutral} />
+      <Statisticline text={"bad"} value={bad} />
       <Statisticline text={"total"} value={good + neutral + bad} />
       <Statisticline
         text={"average"}
@@ -44,10 +47,6 @@ const App = () => {
       <Button handleClick={() => setGood(good + 1)} text={"good"} />
       <Button handleClick={() => setNeutral(neutral + 1)} text={"neutral"} />
       <Button handleClick={() => setBad(bad + 1)} text={"bad"} />
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-
       <h1>Statistics</h1>
       <History
         total={good + neutral + bad}
