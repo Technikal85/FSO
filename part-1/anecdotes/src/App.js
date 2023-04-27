@@ -25,25 +25,28 @@ const App = () => {
     setPoints(copy);
   };
 
+  const mostVotes = () => {
+    let maxIndex = 0;
+    for (let i = 1; i < points.length; i++) {
+      if (points[i] > points[maxIndex]) {
+        maxIndex = i;
+      }
+    }
+    return maxIndex;
+  };
+
+  const mostVotesIndex = mostVotes();
   return (
-    <table>
-      <tbody>
-        <tr>
-          <td>{anecdotes[selected]}</td>
-        </tr>
-        <tr>
-          <td>{points[selected]}</td>
-        </tr>
-        <tr>
-          <td>
-            <button onClick={randomNumber}>New Anecdote</button>
-          </td>
-          <td>
-            <button onClick={increment}>Vote</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <>
+      <h1>Anecdote of the day:</h1>
+      <p>{anecdotes[selected]}</p>
+      <p>{points[selected]}</p>
+      <button onClick={randomNumber}>New Anecdote</button>
+      <button onClick={increment}>Vote</button>
+      <h1>Anecdote with the most votes</h1>
+      <p>{anecdotes[mostVotesIndex]}</p>
+      <p>Has{points[mostVotesIndex]} votes</p>
+    </>
   );
 };
 
