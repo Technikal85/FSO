@@ -2,6 +2,8 @@ const Header = ({ name }) => {
   return <h1>{name}</h1>;
 };
 
+const Total = ({ sum }) => <p>Number of exercises {sum}</p>;
+
 const Part = ({ part }) => (
   <p>
     {part.name} {part.exercises}
@@ -13,14 +15,17 @@ const Content = ({ parts }) => (
     <Part part={parts[0]} />
     <Part part={parts[1]} />
     <Part part={parts[2]} />
+    <Part part={parts[3]} />
   </>
 );
 
-const Course = ({ course }) => {
+const Course = ({ name, parts }) => {
+  const totalExercises = parts.reduce((sum, part) => sum + part.exercises, 0);
   return (
     <>
-      <Header name={course.name} />
-      <Content parts={course.parts} />
+      <Header name={name} />
+      <Content parts={parts} />
+      <Total sum={totalExercises} />
     </>
   );
 };
@@ -45,10 +50,17 @@ const App = () => {
         exercises: 14,
         id: 3,
       },
+      {
+        name: "Redux",
+        exercises: 11,
+        id: 4,
+      },
     ],
   };
 
-  return <Course course={course} />;
+  const { name, parts } = course;
+
+  return <Course name={name} parts={parts} />;
 };
 
 export default App;
