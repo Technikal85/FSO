@@ -72,13 +72,17 @@ const App = () => {
   const addName = (event) => {
     event.preventDefault();
     const newPerson = { name: newName, number: newNumber };
-    persons.forEach((person) => {
-      if (person.name === newPerson.name) {
-        return alert(`${newPerson.name} is already in the phonebook`);
-      } else {
-        setPersons(persons.concat(newPerson));
-      }
-    });
+
+    const isDuplicate = persons.some(
+      (person) => person.name === newPerson.name
+    );
+
+    if (isDuplicate) {
+      alert(`${newPerson.name} is already in the phonebook`);
+      return;
+    }
+
+    setPersons(persons.concat(newPerson));
     axios.post("http://localhost:3001/persons", newPerson).then((response) => {
       setPersons(persons.concat(response.data));
       setNewName("");
