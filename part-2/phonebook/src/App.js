@@ -32,14 +32,21 @@ const Form = ({
   );
 };
 
-const People = ({ persons, filter }) => {
+const People = ({ persons, filter, handleRemove }) => {
   const peopleToShow = filter
     ? persons.filter((person) => person.name.toLowerCase().includes(filter))
     : persons;
   return (
     <ul>
       {peopleToShow.map((person) => {
-        return <li key={person.name}>{person.name + person.number}</li>;
+        return (
+          <li key={person.name}>
+            {person.name + person.number}
+            <button onClick={() => handleRemove(person.name, person.id)}>
+              Delete
+            </button>
+          </li>
+        );
       })}
     </ul>
   );
@@ -69,25 +76,44 @@ const App = () => {
     setFilter(event.target.value.toLowerCase());
   };
 
+  const handleRemove = (name, id) => {
+    window.confirm(`delete ${name}?`);
+    entryService.remove(id).then(() => {
+      setPersons(persons.filter((person) => person.id !== id));
+    });
+  };
+
   const addName = (event) => {
     event.preventDefault();
     const newPerson = { name: newName, number: newNumber };
 
-    const isDuplicate = persons.some(
-      (person) => person.name === newPerson.name
-    );
+    const person = persons.find((person) => person.name === newPerson.name);
 
-    if (isDuplicate) {
-      alert(`${newPerson.name} is already in the phonebook`);
-      return;
+    if (person) {
+      if (person.number !== newPerson.number) {
+        if (
+          window.confirm(
+            `${newPerson.name} is already in the phonebook, replace the old number with a new one?`
+          )
+        ) {
+          entryService.update(person.id, newPerson).then((response) => {
+            setPersons(
+              persons.map((p) => (p.id !== person.id ? p : response.data))
+            );
+            setNewName("");
+            setNewNumber("");
+          });
+        }
+      } else {
+        alert(`${newPerson.name} is already in the phonebook`);
+      }
+    } else {
+      entryService.create(newPerson).then((response) => {
+        setPersons(persons.concat(response.data));
+        setNewName("");
+        setNewNumber("");
+      });
     }
-
-    setPersons(persons.concat(newPerson));
-    entryService.create(newPerson).then((response) => {
-      setPersons(persons.concat(response.data));
-      setNewName("");
-      setNewNumber("");
-    });
   };
 
   return (
@@ -103,7 +129,7 @@ const App = () => {
         handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <People persons={persons} filter={filter} />
+      <People persons={persons} filter={filter} handleRemove={handleRemove} />
     </div>
   );
 };

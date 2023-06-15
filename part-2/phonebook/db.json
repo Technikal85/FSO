@@ -1,124 +1,14 @@
 {
   "persons": [
     {
-      "name": "Arto Hellas",
-      "number": "040-123456",
+      "name": "Danny",
+      "number": "12345",
       "id": 1
     },
     {
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523",
+      "name": "ghkg",
+      "number": "123",
       "id": 2
-    },
-    {
-      "name": "Dan Abramov",
-      "number": "12-43-234345",
-      "id": 3
-    },
-    {
-      "name": "Mary Poppendieck",
-      "number": "39-23-6423122",
-      "id": 4
-    },
-    {
-      "name": "Daniel Ondrisek",
-      "number": "420-69",
-      "id": 5
-    },
-    {
-      "name": "Marylin Monrowl",
-      "number": "666",
-      "id": 6
-    },
-    {
-      "name": "Daniel Ondrisek",
-      "number": "",
-      "id": 7
-    },
-    {
-      "name": "Danny Ondrisek",
-      "number": "",
-      "id": 8
-    },
-    {
-      "name": "Danny Ondrisek",
-      "number": "",
-      "id": 9
-    },
-    {
-      "name": "Danny Ondrisek",
-      "number": "",
-      "id": 10
-    },
-    {
-      "name": "Danny Ondrisek",
-      "number": "",
-      "id": 11
-    },
-    {
-      "name": "Danny Ondrisek",
-      "number": "",
-      "id": 12
-    },
-    {
-      "name": "Danny Ondrisek",
-      "number": "",
-      "id": 13
-    },
-    {
-      "name": "Danny Ondrisek",
-      "number": "",
-      "id": 14
-    },
-    {
-      "name": "Daniel Ondrisek",
-      "number": "",
-      "id": 15
-    },
-    {
-      "name": "Daniel Ondrisek",
-      "number": "",
-      "id": 16
-    },
-    {
-      "name": "Daniel Ondrisek",
-      "number": "",
-      "id": 17
-    },
-    {
-      "name": "Daniel Ondrisek",
-      "number": "",
-      "id": 18
-    },
-    {
-      "name": "Daniel Ondrisek",
-      "number": "",
-      "id": 19
-    },
-    {
-      "name": "Daniel Ondrisek",
-      "number": "",
-      "id": 20
-    },
-    {
-      "name": "d",
-      "number": "",
-      "id": 21
-    },
-    {
-      "name": "d",
-      "number": "",
-      "id": 22
-    },
-    {
-      "name": "d",
-      "number": "",
-      "id": 23
-    },
-    {
-      "name": "d",
-      "number": "",
-      "id": 24
     }
   ]
 }
