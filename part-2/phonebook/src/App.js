@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import entryService from "./services/entries";
+import Notification from "./services/Notification";
 
 const Filter = ({ filter, handleFilterChange }) => {
   return (
@@ -42,7 +43,11 @@ const People = ({ persons, filter, handleRemove }) => {
         return (
           <li key={person.name}>
             {person.name + person.number}
-            <button onClick={() => handleRemove(person.name, person.id)}>
+            <button
+              onClick={() =>
+                handleRemove(person.name, person.id, person.number)
+              }
+            >
               Delete
             </button>
           </li>
@@ -57,6 +62,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [filter, setFilter] = useState("");
+  const [newEntry, setNewEntry] = useState(null);
 
   useEffect(() => {
     entryService.getAll().then((response) => {
@@ -76,10 +82,14 @@ const App = () => {
     setFilter(event.target.value.toLowerCase());
   };
 
-  const handleRemove = (name, id) => {
+  const handleRemove = (name, id, number) => {
     window.confirm(`delete ${name}?`);
     entryService.remove(id).then(() => {
       setPersons(persons.filter((person) => person.id !== id));
+      setNewEntry({ text: `Deleted ${name}${number}`, type: "entry" });
+      setTimeout(() => {
+        setNewEntry(null);
+      }, 5000);
     });
   };
 
@@ -96,13 +106,32 @@ const App = () => {
             `${newPerson.name} is already in the phonebook, replace the old number with a new one?`
           )
         ) {
-          entryService.update(person.id, newPerson).then((response) => {
-            setPersons(
-              persons.map((p) => (p.id !== person.id ? p : response.data))
-            );
-            setNewName("");
-            setNewNumber("");
-          });
+          entryService
+            .update(person.id, newPerson)
+            .then((response) => {
+              setPersons(
+                persons.map((p) => (p.id !== person.id ? p : response.data))
+              );
+              setNewName("");
+              setNewNumber("");
+              setNewEntry({
+                text: `Changed ${person.name} ${person.number} to ${newPerson.name} ${newPerson.number}`,
+                type: "entry",
+              });
+              setTimeout(() => {
+                setNewEntry(null);
+              }, 5000);
+            })
+            .catch((error) => {
+              setNewEntry({
+                text: `${person.name} ${person.number} has already been removed from the server`,
+                type: "error",
+              });
+              setTimeout(() => {
+                setNewEntry(null);
+              }, 5000);
+              setPersons(persons.filter((p) => p.id !== person.id));
+            });
         }
       } else {
         alert(`${newPerson.name} is already in the phonebook`);
@@ -112,12 +141,20 @@ const App = () => {
         setPersons(persons.concat(response.data));
         setNewName("");
         setNewNumber("");
+        setNewEntry({
+          text: `Added ${newPerson.name}${newPerson.number}`,
+          type: "entry",
+        });
+        setTimeout(() => {
+          setNewEntry(null);
+        }, 5000);
       });
     }
   };
 
   return (
     <div>
+      <Notification message={newEntry} />
       <h1>Phonebook</h1>
       <Filter filter={filter} handleFilterChange={handleFilterChange} />
       <h2>Add new</h2>
