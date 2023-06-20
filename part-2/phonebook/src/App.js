@@ -35,7 +35,9 @@ const Form = ({
 
 const People = ({ persons, filter, handleRemove }) => {
   const peopleToShow = filter
-    ? persons.filter((person) => person.name.toLowerCase().includes(filter))
+    ? persons.filter((person) =>
+        person.name.common.toLowerCase().includes(filter)
+      )
     : persons;
   return (
     <ul>
